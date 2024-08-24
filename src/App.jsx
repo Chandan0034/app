@@ -28,19 +28,22 @@ export default function App(){
     }
   ]
   return(
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/python-programming"/>} />
-        <Route path="/c-programming" element={<CodeEditor language="c_cpp" languageName="c" basicCode={helloWorld[1]['1']} path="c-programming"/>} />
-        <Route path="/cpp-programming" element={<CodeEditor language="c_cpp" languageName="cpp" basicCode={helloWorld[2]['2']} path="cpp-programming"/>} />
-        <Route path="/java-programming" element={<CodeEditor language="java" languageName="java"  basicCode={helloWorld[3]['3']} path="java-programming"/>}/>
-        <Route path="/python-programming" element={<CodeEditor language="python" languageName="py" basicCode={helloWorld[0]['0']} path="python-programming"/>}/>
-        <Route path="/javascript-programming" element={<CodeEditor language="javascript" languageName="js" basicCode={helloWorld[4]['4']} path="javascript-programming"/>}/>
-        <Route path='/analysis' element={<TimeComplexity/>}></Route>
-        <Route path ='/signup' element={<Signup/>}></Route>
-        <Route path ='/login' element={<Login/>}></Route>
-        <Route path='/chart' element={<ChartPage timeComplexity={"O(n^2)"}/>}></Route>
-      </Routes>
-    </Router>
+    <div>
+      <h1>Chandan kumar</h1>
+    </div>
+    // <Router>
+    //   <Routes>
+    //     <Route path="/" element={<Navigate to="/python-programming"/>} />
+    //     <Route path="/c-programming" element={<CodeEditor language="c_cpp" languageName="c" basicCode={helloWorld[1]['1']} path="c-programming"/>} />
+    //     <Route path="/cpp-programming" element={<CodeEditor language="c_cpp" languageName="cpp" basicCode={helloWorld[2]['2']} path="cpp-programming"/>} />
+    //     <Route path="/java-programming" element={<CodeEditor language="java" languageName="java"  basicCode={helloWorld[3]['3']} path="java-programming"/>}/>
+    //     <Route path="/python-programming" element={<CodeEditor language="python" languageName="py" basicCode={helloWorld[0]['0']} path="python-programming"/>}/>
+    //     <Route path="/javascript-programming" element={<CodeEditor language="javascript" languageName="js" basicCode={helloWorld[4]['4']} path="javascript-programming"/>}/>
+    //     <Route path='/analysis' element={<TimeComplexity/>}></Route>
+    //     <Route path ='/signup' element={<Signup/>}></Route>
+    //     <Route path ='/login' element={<Login/>}></Route>
+    //     <Route path='/chart' element={<ChartPage timeComplexity={"O(n^2)"}/>}></Route>
+    //   </Routes>
+    // </Router>
   )
 }

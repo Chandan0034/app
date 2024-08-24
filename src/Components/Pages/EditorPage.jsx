@@ -174,12 +174,15 @@ import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-textmate';
 import 'ace-builds/src-noconflict/ext-language_tools'; 
-import { ColorRing } from 'react-loader-spinner'
+import ace from 'ace-builds/src-noconflict/ace';
+import { ColorRing } from 'react-loader-spinner';
 import Output from './CodeOutputBox';
 import TimeComplexity from '../TimeComplexity';
 import { useNavigate } from 'react-router-dom';
 import './EditorPage.css'; // Import the CSS file
 
+// Corrected base path configuration
+ace.config.set('basePath', '/node_modules/ace-builds/src-noconflict');
 const CodeEditor = ({ language, languageName, basicCode, path }) => {
   const [code, setCode] = useState(basicCode);
   const [output, setOutput] = useState('');
@@ -249,18 +252,25 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
 
       // Establish a new socket connection
       const newSocket = io("https://code-compiler-1.onrender.com/", { transports: ["websocket"] });
-      setSocket(newSocket);
-      setIsLoading(true);
-      setOutput('');
+      if(newSocket.active){
+        setSocket(newSocket);
+        setIsLoading(true);
+        setOutput('');
 
-      // Wait for the socket to connect to get the id
-      newSocket.on("connect", () => {
-        setId(newSocket.id);
-        console.log("Connected with ID:", newSocket.id);
-      });
+        // Wait for the socket to connect to get the id
+        newSocket.on("connect", () => {
+          setId(newSocket.id);
+          console.log("Connected with ID:", newSocket.id);
+        });
 
-      // Emit code run event
-      newSocket.emit("runCode", { code, sendLanguage: languageName });
+        // Emit code run event
+        newSocket.emit("runCode", { code, sendLanguage: languageName });
+      }else{
+        console.log("Socket is not active");
+        setIsLoading(false)
+        setCode('Server is busy please  try again later')
+      }
+      
     } catch (e) {
       setIsLoading(false);
       console.log(e);

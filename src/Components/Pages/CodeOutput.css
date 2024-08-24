@@ -1,0 +1,48 @@
+
+  /* Output.css */
+
+.container {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    box-sizing: border-box;
+    border-left: 3px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    justify-content: start;
+    /* height: 87vh;
+    width: 45.5vw; */
+  }
+  
+  .input {
+    outline: none;
+    border: none;
+    resize: none;
+    background-color:white;
+    caret-color: black;
+    color: black;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-style: normal;
+    font-weight: 300;
+    font-family: Arial, sans-serif;
+    height: 300px;
+    font-size: 16px;
+  }
+  
+  .output {
+    font-family: monospace;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background-color: white;
+    color: black;
+    border: none;
+    resize: none;
+    box-sizing: border-box;
+  }
+  

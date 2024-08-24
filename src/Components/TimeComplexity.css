@@ -1,0 +1,75 @@
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  }
+  .Container{
+    background-color: rgba(24 20 30);
+    color:white;
+    text-align:center;
+    height:100vh;
+  }
+  .Container h2{
+    padding-top:10px;
+  }
+  .TimeComplexityContainer {
+    display: flex;
+  
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(24 20 30);
+    color: white;
+    padding-top: 10px;
+    padding-bottom:10px;
+    overflow-y:hidden;
+  }
+  .AnalyzeBtn{
+    padding: 10px;
+    margin:10px;
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: w600;
+    border-radius: 6px;
+    cursor: pointer;;
+    background-color: #59c084;
+    border: none;
+    
+  }
+  .AnalyzeBtn:hover{
+    background-color: #3a8f5b;
+  }
+  .inputOutput{
+    margin-top:10px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+  }
+  .responseOutput{
+    width:50vw;
+    border-radius:10px;
+    height:80vh;
+    background:rgb(84, 82, 87);
+  }
+  .responseOutput pre{
+    padding:10px;
+    text-align:start;
+    font-size:20px;
+    font-family:monospace;
+    font-weight:600;
+    white-space:wrap;
+  }
+  .algoBtn{
+    padding:5px;
+    margin:5px;
+    font-size:14px;
+    font-family:monospace;
+    font-weight:600;
+    border-radius:6px;
+    cursor:pointer;
+    border:none;
+    background-color: #59c084;
+  }
+  .algoBtn:hover{
+    background-color: #3a8f5b;
+  }

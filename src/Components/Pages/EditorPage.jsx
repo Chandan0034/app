@@ -184,7 +184,7 @@ import './EditorPage.css'; // Import the CSS file
 // Corrected base path configuration
 ace.config.set('basePath', '/node_modules/ace-builds/src-noconflict');
 const CodeEditor = ({ language, languageName, basicCode, path }) => {
-  const [code, setCode] = useState(basicCode);
+  const [code, setCode] = useState(``);
   const [output, setOutput] = useState('');
   const [id, setId] = useState('');
   const [socket, setSocket] = useState(null);
@@ -193,7 +193,9 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
   const editorRef = useRef(null);
   const usenavigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
+  useEffect(()=>{
+    setCode(basicCode);
+  },[basicCode])
   // Initialize editor and set word wrap
   useEffect(() => {
     if (editorRef.current) {
@@ -229,7 +231,12 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       };
 
       socket.on("output", handleOutput);
-
+      socket.on("connect_error",(err)=>{
+        console.log(err);
+        setIsLoading(false);
+        setOutput("connection failed please try again later")
+        socket.disconnect();
+      })
       // Clean up the event listener when the component unmounts or socket changes
       return () => {
         if (socket) {
@@ -238,7 +245,6 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       };
     }
   }, [socket, id, output]);
-
   // Handle the run button click
   const handleRun = () => {
     try {
@@ -252,7 +258,8 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
 
       // Establish a new socket connection
       const newSocket = io("https://code-compiler-1.onrender.com/", { transports: ["websocket"] });
-      if(newSocket.active){
+      if(newSocket.connect){
+        console.log("active")
         setSocket(newSocket);
         setIsLoading(true);
         setOutput('');
@@ -280,6 +287,8 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
   const navigateHandle = (e) => {
     const name = e.currentTarget.getAttribute('name');
     const location = window.location.href.split(switchLan)[0];
+    setOutput(``);
+    setId(``);
     setNextUrl(location);
     setSwitchLan(name);
   };

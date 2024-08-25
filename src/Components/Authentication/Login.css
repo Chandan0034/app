@@ -23,6 +23,7 @@
   .login-form label{
     display:block;
     margin:10px;
+    color: black;
   }
   .login-form input{
     width:100%;

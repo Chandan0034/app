@@ -36,6 +36,9 @@
     border: none;
     
   }
+  .AnalyzeBtn:disabled{
+    cursor: not-allowed;
+  }
   .AnalyzeBtn:hover{
     background-color: #3a8f5b;
   }

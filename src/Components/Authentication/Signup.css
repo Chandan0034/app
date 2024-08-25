@@ -23,6 +23,7 @@
   .signup-form label{
     display:block;
     margin:10px;
+    color: black;
   }
   .signup-form input{
     width:100%;

@@ -10,6 +10,7 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import data from './Data';
+import { toast } from 'react-toastify';
 const LanguageDetectEditor = () => {
   
   const [mode, setMode] = useState('text');
@@ -21,6 +22,7 @@ const LanguageDetectEditor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectTimeComplexity, setSelectTimeComplexity] = useState('');
   const [complexityData, setComplexityData]=useState([]);
+  const [graphBtn,setGraphBtn]=useState(true);
   const editorRef = useRef(null);
   const mySecret = import.meta.env['ChandanGeminiApi']
   const handleOpenModal = () => {
@@ -60,40 +62,44 @@ const LanguageDetectEditor = () => {
   const handleComplexity=async()=>{
     
     try{
-      setIsresonse(true);
-      setOutput({TimeComplexity:"",SpaceComplexity:"",Explanation:""})
-      const response=await axios({url:`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBu2K_ZHnwa2w4QeSYXSEbAAQ2o_MLQX08`,
-        method:'post',
-        data:{
-          contents:[{"parts":[{"text":`${code} Analyze the time and space complexity of the provided algorithm, which processes integer data in JSON format. Using time complexity expression compute integer values for each n from 0 to 20 to store in Array Compute accurate same like y=expression. with explanation within the 100 words not more than 100 words.in explanation not include the compute value Provide a JSON output with the following structure:
-      {
-      "time_complexity_expression": "<expression>",
-      "space_complexity": "<expression>",
-      "computed_values": [<list of values for n=0 to 20>],
-      "explanation":"",
-      }`}]}]
-        }
-      });
-      setIsresonse(false);
-      console.log(response)
-      if(response.status==200){
-        const data=response.data.candidates[0].content.parts[0].text;
-        const jsonData=extractJSON(data);
-        const complexityData=JSON.parse(jsonData);
-        setComplexityData(complexityData['computed_values']);
-      setSelectTimeComplexity(complexityData['time_complexity_expression']);
-        console.log(jsonData);
-        console.log(complexityData);
-        //set value to setOutput
-        setOutput({
-          "TimeComplexity":complexityData['time_complexity_expression'],
-          "SpaceComplexity":complexityData['space_complexity'],
-          "Explanation":complexityData['explanation']
+      if(code.length >0){
+        setIsresonse(true);
+        setOutput({TimeComplexity:"",SpaceComplexity:"",Explanation:""})
+        const response=await axios({url:`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyBu2K_ZHnwa2w4QeSYXSEbAAQ2o_MLQX08`,
+          method:'post',
+          data:{
+            contents:[{"parts":[{"text":`${code} Analyze the time and space complexity of the provided algorithm, which processes integer data in JSON format. Using time complexity expression compute integer values for each n from 0 to 20 to store in Array Compute accurate same like y=expression. with explanation within the 100 words not more than 100 words.in explanation not include the compute value Provide a JSON output with the following structure:
+        {
+        "time_complexity_expression": "<expression>",
+        "space_complexity": "<expression>",
+        "computed_values": [<list of values for n=0 to 20>],
+        "explanation":"",
+        }`}]}]
+          }
         });
+        setGraphBtn(false);
+        setIsresonse(false);
+        console.log(response)
+        if(response.status==200){
+          const data=response.data.candidates[0].content.parts[0].text;
+          const jsonData=extractJSON(data);
+          const complexityData=JSON.parse(jsonData);
+          setComplexityData(complexityData['computed_values']);
+        setSelectTimeComplexity(complexityData['time_complexity_expression']);
+          console.log(jsonData);
+          console.log(complexityData);
+          //set value to setOutput
+          setOutput({
+            "TimeComplexity":complexityData['time_complexity_expression'],
+            "SpaceComplexity":complexityData['space_complexity'],
+            "Explanation":complexityData['explanation']
+          });
+        }else{
+          //setOutput('Something went wrong');
+        }
       }else{
-        //setOutput('Something went wrong');
+        toast.warning("Please Write The Code",{autoClose:5000})
       }
-      
     }catch(err){
       console.log("Error ",String(err));
     }
@@ -127,7 +133,7 @@ const LanguageDetectEditor = () => {
       <h2>Time Complexity And Space Complexity Analysis</h2>
       <div className='TimeComplexityContainer'>
         <div className='btnHandle'>
-          <button className='AnalyzeBtn' onClick={handleOpenModal}>Graph</button>
+          <button className='AnalyzeBtn' onClick={handleOpenModal} disabled={graphBtn}>Graph</button>
           <button className="AnalyzeBtn" onClick={handleComplexity}>{isresonse ? "Loading...":"Analyze"}</button>
         </div>
         <div>

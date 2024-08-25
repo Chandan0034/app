@@ -180,11 +180,15 @@ import Output from './CodeOutputBox';
 import TimeComplexity from '../TimeComplexity';
 import { useNavigate } from 'react-router-dom';
 import './EditorPage.css'; // Import the CSS file
-
+import { CplusplusPlain, JavascriptOriginal, PytorchOriginal } from 'devicons-react';
+import { JavaOriginal } from 'devicons-react';
+import { CPlain,CplusplusOriginal,PythonOriginal} from 'devicons-react';
+// import JavascriptOriginal from 'devicons-react/lib/icons/JavascriptOriginal';
 // Corrected base path configuration
 ace.config.set('basePath', '/node_modules/ace-builds/src-noconflict');
 const CodeEditor = ({ language, languageName, basicCode, path }) => {
   const [code, setCode] = useState(``);
+  const [selectedLanguage,setSelectedLanguage]=useState(languageName);
   const [output, setOutput] = useState('');
   const [id, setId] = useState('');
   const [socket, setSocket] = useState(null);
@@ -286,9 +290,11 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
 
   const navigateHandle = (e) => {
     const name = e.currentTarget.getAttribute('name');
+    const lan=e.currentTarget.getAttribute('languag');
     const location = window.location.href.split(switchLan)[0];
     setOutput(``);
     setId(``);
+    setSelectedLanguage(lan);
     setNextUrl(location);
     setSwitchLan(name);
   };
@@ -316,31 +322,53 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       </h2>
       <div className="containerBox">
         <div className="LanguageIcon">
-          <div className="LanIcons">
+          {[{name:"python-programming",title:"Py",languages:'py',icons:0},
+            {name:"c-programming",title:"C",languages:'c',icons:1},
+            {name:"cpp-programming",title:"CPP",languages:'cpp',icons:2},
+            {name:"java-programming",title:"Java",languages:'java',icons:3},
+            {name:"javascript-programming",title:"JS",languages:'js',icons:4},
+            ].map((lang)=>(
+              console.log(lang.name),
+              <div key={lang.name}
+              className='LanIcons'
+              style={{backgroundColor: selectedLanguage===lang.languages ? '#ccc':'transparent'}}>
+                <a href={`${nextUrl}${lang.name}`} onClick={navigateHandle} title={lang.title} name={lang.name} languag={lang.languages}>
+                  {
+                    lang.icons===0?<PythonOriginal style={{transform: 'scale(2)'}}/>:
+                    lang.icons===1?<CPlain style={{transform: 'scale(1.8)'}}/>:
+                    lang.icons===2?<CplusplusPlain style={{transform: 'scale(1.8)'}}/>:
+                    lang.icons===3?<JavaOriginal style={{transform: 'scale(1.8)'}}/>:<JavascriptOriginal style={{transform: 'scale(1.8)'}}/>
+                  }
+                </a>
+                
+              </div>
+            ))
+          }
+          {/* <div className="LanIcons">
             <a href={`${nextUrl}python-programming`} onClick={navigateHandle} name="python-programming" title='Py'>
-              <img src='python.png' alt='py' style={{ height: '30px', width: '30px', objectFit: 'fill' }} />
+              <PythonOriginal style={{ transform: 'scale(2)' }}/>
             </a>
           </div>
           <div className="LanIcons">
             <a href={`${nextUrl}c-programming`} onClick={navigateHandle} name="c-programming" title='C'>
-              <img src='letter-c.png' style={{ height: '30px', width: '30px', objectFit: 'fill' }} />
+              <CPlain style={{ transform: 'scale(2)' }}/>
             </a>
           </div>
           <div className="LanIcons">
             <a href={`${nextUrl}cpp-programming`} onClick={navigateHandle} name="cpp-programming" title='Cpp'>
-              <img src='c-.png' alt='CPP' style={{ height: '30px', width: '30px', objectFit: 'fill' }} />
+              <CplusplusOriginal style={{ transform: 'scale(2)' }}/>
             </a>
           </div>
           <div className="LanIcons">
             <a href={`${nextUrl}java-programming`} onClick={navigateHandle} name="java-programming" title='Java'>
-              <img src='java.png' style={{ height: '30px', width: '30px', objectFit: 'fill' }} />
+              <JavaOriginal style={{ transform: 'scale(1.8)' }}/>
             </a>
           </div>
           <div className="LanIcons">
             <a href={`${nextUrl}javascript-programming`} onClick={navigateHandle} name="javascript-programming" title='Js'>
-              <img src='java-script.png' style={{ height: '30px', width: '30px', objectFit: 'fill' }} />
+              <JavascriptOriginal style={{ transform: 'scale(1.8)' }}/>
             </a>
-          </div>
+          </div> */}
         </div>
         <div>
           <div className='btnNav'>
@@ -388,7 +416,7 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
                 enableSnippets: true,
                 tabSize:2
               }}
-              style={{ width: "50vw", height: "87vh" ,overflowX:'auto'}}
+              style={{ width: "51vw", height: "87vh" ,overflowX:'auto'}}
               name="ace-editor"
               editorProps={{ $blockScrolling: true }}
               ref={editorRef}

@@ -71,7 +71,7 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       socket.on("connect_error",(err)=>{
         console.log(err);
         setIsLoading(false);
-        setOutput("connection failed please try again later")
+        setOutput("Connection failed please try again later")
         socket.disconnect();
       })
       // Clean up the event listener when the component unmounts or socket changes
@@ -96,7 +96,6 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       // Establish a new socket connection
       const newSocket = io("https://code-compiler-1.onrender.com/", { transports: ["websocket"] });
       if(newSocket.connect){
-        console.log("active")
         setSocket(newSocket);
         setIsLoading(true);
         setOutput('');
@@ -161,7 +160,6 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
             {name:"java-programming",title:"Java",languages:'java',icons:3},
             {name:"javascript-programming",title:"JS",languages:'js',icons:4},
             ].map((lang)=>(
-              console.log(lang.name),
               <div key={lang.name}
               className='LanIcons'
               style={{backgroundColor: selectedLanguage===lang.languages ? '#ccc':'transparent'}}>

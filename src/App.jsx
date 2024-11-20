@@ -32,22 +32,19 @@ export default function App() {
   },[isOnline]);
   const helloWorld = [
     {
-      '0': `#write code in python whatever you want\n\nprint("Hello World!")`,
+      '0': `print("Hello World!")`,
     },
     {
-      '1': `/******************************************************************************\n\n\t\t\tWelcome to Online Code Runner.\n\n\t\t\tonline Code Runner is an online compiler and debugger tool for C, C++, Python,Javascript,Java,
-  \n\n\t\t\t Code, Compile, Run and Debug online from anywhere in world.\n\n
-
-*******************************************************************************/\n\n#include<stdio.h>\nint main(){\n\n\tprintf("Hello World!");\n\n\treturn 0;\n}`,
+      '1': `#include<stdio.h>\nint main(){\n\n\tprintf("Hello World!");\n\n\treturn 0;\n}`,
     },
     {
-      '2': `//write code in cpp whatever you want\n\n#include<bits/stdc++.h>\nusing namespace std;\nint main(){\n\n\tcout<<"Hello World!"<<endl;\n\n\treturn 0;\n}`,
+      '2': `#include<bits/stdc++.h>\nusing namespace std;\nint main(){\n\n\tcout<<"Hello World!"<<endl;\n\n\treturn 0;\n}`,
     },
     {
-      '3': `//write code in Java whatever you want\n\nclass Main{\n\n\tpublic static void main(String[] args){\n\n\t\tSystem.out.println("Hello World!");\n\n\t}\n\n}`,
+      '3': `class Main{\n\n\tpublic static void main(String[] args){\n\n\t\tSystem.out.println("Hello World!");\n\n\t}\n\n}`,
     },
     {
-      '4': `//write code in Javascript whatever you want\n\nfunction Hello(){\n\n\tconsole.log("Hello World!");\n\n}\n\nHello();`,
+      '4': `function Hello(){\n\n\tconsole.log("Hello World!");\n\n}\n\nHello();`,
     },
   ];
   console.log(navigator.onLine)

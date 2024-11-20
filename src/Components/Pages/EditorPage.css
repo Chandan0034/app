@@ -37,6 +37,9 @@
     padding-left: 10px;
 
   }
+  .runButton:disabled{
+    cursor: wait;
+  }
   .btnSection {
     display: flex;
     flex-direction: row;
@@ -57,7 +60,7 @@
     font-size: 16px;
     color: #fff;
     margin-right: 1rem;
-    background-color: #4CAF50;
+    background-color: rgba(76, 175, 80, 1);
     border: none;
     margin-left: 1rem;
     border-radius: 4px;

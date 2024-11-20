@@ -324,10 +324,6 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       setIsLoading(true);
       setOutput('');
 
-      if (socket) {
-        socket.disconnect(); // Clear existing connection
-      }
-
       const newSocket = io("https://code-compiler-1.onrender.com/", { transports: ["websocket"] });
       setSocket(newSocket);
 
@@ -336,6 +332,7 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
       });
     } catch (error) {
       console.error(error);
+      socket.disconnect();
       setIsLoading(false);
     }
   };

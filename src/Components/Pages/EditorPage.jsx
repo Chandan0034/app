@@ -283,13 +283,13 @@ const CodeEditor = ({ language, languageName, basicCode, path }) => {
   }, []);
 
   // Cleanup socket connection on component unmount
-  useEffect(() => {
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
-  }, [socket]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (socket) {
+  //       socket.disconnect();
+  //     }
+  //   };
+  // }, [socket]);
 
   // Manage socket events and disconnect
   useEffect(() => {
